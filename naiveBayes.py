@@ -103,7 +103,7 @@ def select_image():
 # Criar interface gráfica com tkinter
 root = tk.Tk()
 root.title("Classificador de Gatos")
-root.geometry("600x600")  # Aumenta o tamanho da janela
+root.geometry("600x400")  # Aumenta o tamanho da janela
 
 # Criar botão para selecionar imagem
 btn_select_image = tk.Button(root, text="Selecionar Imagem", command=select_image)

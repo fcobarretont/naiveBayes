@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classificador de Gatos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4CAF50; /* Verde */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Verde mais escuro */
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .result img {
+            width: 299px; /* Largura fixa */
+            height: 168px; /* Altura fixa */
+            object-fit: cover; /* Mantém a proporção da imagem */
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <h1>Classificador de Gatos</h1>
+    
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Classificar</button>
+    </form>
+
+    {% if prediction %}
+        <div class="result">
+            <h2>Resultado da Classificação:</h2>
+            <h3>{{ prediction }}</h3>
+            {% if image_file %}
+                <img src="{{ url_for('static', filename=image_file) }}" alt="Imagem Classificada">
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div class="footer">
+        <p>&copy; 2024 Classificador de Gatos. Todos os direitos reservados.</p>
+    </div>
+</body>
+</html>
