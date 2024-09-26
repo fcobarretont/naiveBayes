@@ -21,10 +21,14 @@ def load_data(data_dir):
         img_path = os.path.join(data_dir, 'gatos', img_name)
         image = imread(img_path)
         image = resize(image, image_size)  # Redimensionar a imagem
-        
-        if image.shape[2] == 4:
-            image = image[:, :, :3]  # Remove o canal alfa
-        
+
+        if len(image.shape) == 3:  # checa se image tem 3 dimensoes
+            if image.shape[2] == 4:
+                image = image[:, :, :3]  # Remove o canal alfa
+        else:
+            # se img preto e branco, converta p/ rgb duplicando channels
+            image = np.stack((image,) * 3, axis=-1)
+
         # Adicionar imagem original
         gray_image = rgb2gray(image) / 255.0  # Normaliza os valores dos pixels
         features = hog(gray_image, pixels_per_cell=(8, 8), cells_per_block=(2, 2), visualize=False)
@@ -47,10 +51,14 @@ def load_data(data_dir):
         img_path = os.path.join(data_dir, 'nao_gatos', img_name)
         image = imread(img_path)
         image = resize(image, image_size)  # Redimensionar a imagem
-        
-        if image.shape[2] == 4:
-            image = image[:, :, :3]  # Remove o canal alfa
-        
+
+        if len(image.shape) == 3:  # Check if the image has 3 dimensions
+            if image.shape[2] == 4:
+                image = image[:, :, :3]  # Remove o canal alfa
+        else:
+            # If the image is grayscale (2 dimensions), convert to RGB by duplicating channels
+            image = np.stack((image,) * 3, axis=-1)
+
         # Adicionar imagem original
         gray_image = rgb2gray(image) / 255.0  # Normaliza os valores dos pixels
         features = hog(gray_image, pixels_per_cell=(8, 8), cells_per_block=(2, 2), visualize=False)
